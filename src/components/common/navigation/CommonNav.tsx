@@ -22,7 +22,7 @@ function CommonNav(){
         )
     })
 
-    return <div className={styles.navigation}>{navLinks}</div>
+    return <nav className={styles.navigation}>{navLinks}</nav>
 }
 
 export default CommonNav
