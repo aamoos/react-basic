@@ -4,18 +4,20 @@ import styles from './styles/index.module.scss'
 import CommonNav from '@/components/common/navigation/CommonNav'
 import CommonFooter from '@/components/common/footer/CommonFooter'
 import Card from './components/Card'
+import DetailDialog from './components/dialog/DetailDialog'
+
 import { useState } from 'react'
 import { CardDTO } from './types/card'
 import { useRecoilValue } from 'recoil'
 import { imageData } from '@/recoil/selectors/imageSelectors'
 
-function IndexPage() {
+function index() {
     const imgSelector = useRecoilValue(imageData)
     const [imgData, setImgData] = useState<CardDTO[]>([])
+    const [open, setOpen] = useState<Boolean>(false) // 이미지 상세 다이얼로그 발생(관리) State
     
     const CARD_LIST = imgSelector.data.results.map((card: CardDTO) => {
-        return <Card data={card} key={card.id} />
-        
+        return <Card data={card} key={card.id} handleDialog={setOpen} />
     })
 
     return (
@@ -40,8 +42,9 @@ function IndexPage() {
             </div>
             {/* 공통 푸터 */}
             <CommonFooter />
+            { open && <DetailDialog />}
         </div>
     )
 }
 
-export default IndexPage
+export default index
